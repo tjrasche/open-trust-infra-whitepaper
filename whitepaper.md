@@ -8,6 +8,33 @@
 
 ---
 
+## Inhaltsverzeichnis
+
+- [Executive Summary](#executive-summary)
+- [1. Auftrag, Gegenstand und Leitprinzipien](#abschnitt-1)
+- [2. Problem und Nutzen](#abschnitt-2)
+- [3. Was der Nachweis aussagt – und was nicht](#abschnitt-3)
+- [4. Identität und Authentisierung](#abschnitt-4)
+- [5. Technische Architektur](#abschnitt-5)
+- [6. Transparenzlog, Witnesses, Monitore und Mirrors](#abschnitt-6)
+- [7. Vertrauensanker, Schlüsselmanagement und Kryptografie](#abschnitt-7)
+- [8. Datenschutz und Daten-Governance](#abschnitt-8)
+- [9. Sicherheit: Bedrohungen, Maßnahmen und Restrisiken](#abschnitt-9)
+- [10. Verfügbarkeit, Skalierung und Betrieb](#abschnitt-10)
+- [11. Governance und Public-Good-Modell](#abschnitt-11)
+- [12. Umsetzung in zwölf Monaten](#abschnitt-12)
+- [13. Rechtliche Einordnung](#abschnitt-13)
+- [Anhang A: Ausbaupfade nach dem Kernpilot](#anhang-a)
+- [Anhang B: 22 konkrete Anwendungsfälle](#anhang-b)
+- [Anhang C: Optionale spätere Profile](#anhang-c)
+- [Anhang D: Glossar](#anhang-d)
+- [Anhang E: Quellen und weiterführende Spezifikationen](#anhang-e)
+- [Schlussbemerkung](#schlussbemerkung)
+
+---
+
+<a id="executive-summary"></a>
+
 ## Executive Summary
 
 Digitale Verwaltung und digitale Wirtschaft erzeugen täglich Softwarepakete, Dokumente, Datensätze, Container-Images, Bescheide, Modelle, Medien und andere digitale Artefakte. Für ihre Empfänger ist häufig nur schwer automatisiert feststellbar, von wem eine konkrete Fassung stammt, ob sie nach der Veröffentlichung verändert wurde und mit welchem Authentisierungsniveau die signierende Person, Rolle oder Maschine geprüft war. Einzelne Dateiformate, Software-Ökosysteme und Behörden lösen Teile dieses Problems bereits. Es fehlt jedoch eine offene, formatneutrale und organisationsübergreifend nutzbare Vertrauensinfrastruktur.
@@ -45,6 +72,8 @@ Der Weg zur Entscheidung ist auf zwölf Monate begrenzt. In den ersten sechs Mon
 Der Nutzen ist unmittelbar: Verwaltungssoftware kann ihre Binärdateien und Container nachweisbar veröffentlichen, Behörden können Datensätze und Bescheide formatneutral signieren, Organisationen können Rollen statt Privatpersonen sichtbar machen, und automatisierte Systeme erhalten nachvollziehbare Workload-Identitäten. Später lassen sich strukturierte Aussagen mit in-toto-Attestierungen, mehrstufige Lieferkettenregeln und C2PA-Herkunftsinformationen ergänzen. Die Kerninfrastruktur bleibt dabei absichtlich schmal: Sie bindet Identität, Schlüssel, Hash und Logzeit – und schafft so eine gemeinsame, offen überprüfbare Grundlage, auf der viele fachliche Vertrauensentscheidungen aufbauen können.
 
 ---
+
+<a id="abschnitt-1"></a>
 
 ## 1. Auftrag, Gegenstand und Leitprinzipien
 
@@ -93,6 +122,8 @@ Nicht Teil des ersten Umsetzungsschritts sind TLS- und Browserzertifikate, quali
 
 ---
 
+<a id="abschnitt-2"></a>
+
 ## 2. Problem und Nutzen
 
 ### 2.1 Fragmentierte Vertrauensinseln
@@ -125,6 +156,8 @@ Der Empfänger öffnet die Datei in einem beliebigen kompatiblen Prüfprogramm. 
 Auch der vorgeschaltete offene BundID-OIDC-Dienst hat einen eigenständigen Nutzen. Ein Onlinedienst kann mit Zustimmung des Nutzers feststellen, dass hinter einer aktuellen Anmeldung eine über die BundID stark authentisierte natürliche Person steht. Diese Aussage enthält weder Namen noch Staatsangehörigkeit und erzeugt dank sektorspezifischer Pseudonyme keine dienstübergreifende öffentliche Kennung. Der vollständige Herkunftsnachweis erweitert diese Fähigkeit anschließend von der Anmeldung auf Dateien, Software, Daten, Nachrichten und maschinell erzeugte Inhalte.
 
 ---
+
+<a id="abschnitt-3"></a>
 
 ## 3. Was der Nachweis aussagt – und was nicht
 
@@ -175,6 +208,8 @@ Empfänger sollen Vertrauensentscheidungen nicht in eine undurchsichtige Ja/Nein
 Im Kernprototyp werden nur einfache deklarative Prüfparameter benötigt. Allgemeine Policy-Sprachen wie Rego oder CUE können später als Adapter hinzukommen, sind aber keine Voraussetzung für die erste funktionsfähige Kette.
 
 ---
+
+<a id="abschnitt-4"></a>
 
 ## 4. Identität und Authentisierung
 
@@ -253,6 +288,8 @@ Zu Beginn werden öffentliche Stellen und öffentliche IT-Dienstleister registri
 Innerhalb ihres Namensraums kann jede Organisation eigene Rollen und Claims definieren, Nutzern oder Workloads zuweisen und wieder entziehen – funktional vergleichbar mit der dezentralen Verwaltung organisationsinterner Anwendungen und Rollen in etablierten Identity-Plattformen. Die zentrale Infrastruktur genehmigt weder das einzelne Rollenvokabular noch die einzelne Zuweisung. Für den interoperablen Kern werden Rolle und Workload in standardisierten URI-Namensräumen ausgedrückt; umfangreichere fachliche Claims können später in signierten Attestierungen transportiert werden.
 
 ---
+
+<a id="abschnitt-5"></a>
 
 ## 5. Technische Architektur
 
@@ -342,6 +379,8 @@ Mindestens zwei unabhängig implementierte Programme müssen dieselben positiven
 
 ---
 
+<a id="abschnitt-6"></a>
+
 ## 6. Transparenzlog, Witnesses, Monitore und Mirrors
 
 ### 6.1 Öffentlicher Loginhalt
@@ -390,6 +429,8 @@ Für vertrauliche Artefaktnamensräume kann später ein zugriffsgeschützter Log
 
 ---
 
+<a id="abschnitt-7"></a>
+
 ## 7. Vertrauensanker, Schlüsselmanagement und Kryptografie
 
 ### 7.1 TUF als Verteilungs- und Rotationsmechanismus
@@ -415,6 +456,8 @@ Post-Quanten-Migration wird von Beginn an vorbereitet: Algorithmus-IDs sind nich
 Langzeitarchive speichern Artefakt, Bundle, alle damals relevanten TUF-Metadaten, akzeptierte Checkpoints, Sperrereignisse und die angewandte Policy-Version. Vor Ablauf der kryptografischen Eignung können Archive Nachweise erneuern oder in neue, signierte Archivcontainer überführen. Die ursprüngliche Signatur wird nicht umgedeutet; die Erneuerung dokumentiert lediglich, dass der alte Beweis vor dem Algorithmusablauf geprüft und neu gesichert wurde.
 
 ---
+
+<a id="abschnitt-8"></a>
 
 ## 8. Datenschutz und Daten-Governance
 
@@ -451,6 +494,8 @@ Die politische Produktverantwortung, der technische Logbetrieb, die Identitätss
 
 ---
 
+<a id="abschnitt-9"></a>
+
 ## 9. Sicherheit: Bedrohungen, Maßnahmen und Restrisiken
 
 Die Tabelle ist eine Kurzfassung. Für den Pilot ist ein vollständiges Bedrohungsmodell nach Sigstore-Vorbild, einschließlich Annahmen über Identitätsanbieter, Zertifizierungsstelle, Log, Clients und Monitore, öffentlich fortzuschreiben ([Sigstore Threat Model](https://docs.sigstore.dev/about/threat-model/), [Sigstore Security](https://docs.sigstore.dev/about/security/)).
@@ -474,6 +519,8 @@ Die Tabelle ist eine Kurzfassung. Für den Pilot ist ein vollständiges Bedrohun
 Sicherheitsmeldungen werden über einen veröffentlichten Prozess entgegengenommen. Kritische Vorfälle erhalten eine unveränderliche öffentliche Zeitleiste, Ursachenanalyse und Prüfdaten. Fehlerprämien und regelmäßige unabhängige Penetrationstests sind vorzusehen.
 
 ---
+
+<a id="abschnitt-10"></a>
 
 ## 10. Verfügbarkeit, Skalierung und Betrieb
 
@@ -509,6 +556,8 @@ Im Verhältnis zu bestehenden Identitätsplattformen und zu den vermiedenen para
 
 ---
 
+<a id="abschnitt-11"></a>
+
 ## 11. Governance und Public-Good-Modell
 
 ### 11.1 Zuständigkeiten
@@ -542,6 +591,8 @@ Ein öffentliches technisches Steuerungsgremium bearbeitet Spezifikationsänderu
 Die Haushaltsplanung muss Betrieb, Sicherheitsupdates, Schlüsselzeremonien, Audits, Langzeitarchiv und Community-Infrastruktur mehrjährig abdecken. Ein befristetes Projekt ohne dauerhafte Produktverantwortung wäre für einen Vertrauensanker ungeeignet. Zugleich verhindert eine klare Ausstiegs- und Migrationsregel Abhängigkeit: Wurzeln und Endpunkte können geordnet ersetzt werden, historische Bundles bleiben prüfbar.
 
 ---
+
+<a id="abschnitt-12"></a>
 
 ## 12. Umsetzung in zwölf Monaten
 
@@ -608,6 +659,8 @@ Bei Erfolg folgt die Überführung in einen öffentlichen Dienst mit schrittweis
 
 ---
 
+<a id="abschnitt-13"></a>
+
 ## 13. Rechtliche Einordnung
 
 ### 13.1 Elektronische Signatur nach eIDAS
@@ -633,6 +686,8 @@ Vor Produktivstart sind insbesondere zu klären:
 - Archiv- und Löschkonzept für Log, Betriebsdaten und Zuordnungstabellen.
 
 ---
+
+<a id="anhang-a"></a>
 
 ## Anhang A: Ausbaupfade nach dem Kernpilot
 
@@ -662,6 +717,8 @@ Die Grenzen sind wesentlich: Nicht kooperierende oder lokale Werkzeuge können K
 Anwendungsfälle mit gesetzlichem Schriftformerfordernis oder qualifiziertem Zeitnachweis können später qualifizierte Vertrauensdienste als zusätzliche Schicht verwenden. Ein solches Profil muss eIDAS-Konformität, Vertrauensdiensteanbieter, Zertifikatssemantik, Haftung und Langzeitvalidierung gesondert lösen. Der offene Herkunftsnachweis wird dadurch ergänzt, nicht rückwirkend zur qualifizierten Signatur erklärt.
 
 ---
+
+<a id="anhang-b"></a>
 
 ## Anhang B: 22 konkrete Anwendungsfälle
 
@@ -911,6 +968,8 @@ Jeder Anwendungsfall folgt demselben Acht-Punkte-Raster. Die Beispiele illustrie
 
 ---
 
+<a id="anhang-c"></a>
+
 ## Anhang C: Optionale spätere Profile
 
 ### C1. Hardwarebasierte Notfallausnahme
@@ -930,6 +989,8 @@ Eine darüber hinausgehende europäische Föderation nationaler Vertrauensdomän
 Eine Öffnung der hier vorgeschlagenen Wurzel für allgemein vertraute Browserzertifikate würde Haftung, Aufsicht, technische Angriffsfläche und den möglichen Schaden einer Fehlkonfiguration erheblich erweitern. Falls ein solcher Bedarf später nachgewiesen wird, ist er deshalb in einem getrennten Profil und einer getrennten Vertrauenshierarchie zu erproben. Der Kernpilot beantragt weder Browser-Root-Status noch ersetzt er Domainvalidierung, ACME oder die bestehende Web-PKI.
 
 ---
+
+<a id="anhang-d"></a>
 
 ## Anhang D: Glossar
 
@@ -1037,6 +1098,8 @@ Automatisierter Prozess, Dienst oder Laufzeit, der unter Verantwortung einer reg
 
 ---
 
+<a id="anhang-e"></a>
+
 ## Anhang E: Quellen und weiterführende Spezifikationen
 
 Abruf- und Bewertungsstand aller Webquellen ist der 19. Juli 2026. Verlinkt werden vorrangig Rechtsakte, Behördeninformationen und offizielle Spezifikationen. Versionsstände dynamischer Spezifikationen müssen bei Umsetzung erneut geprüft werden.
@@ -1081,6 +1144,8 @@ Abruf- und Bewertungsstand aller Webquellen ist der 19. Juli 2026. Verlinkt werd
 - [§ 146 AO](https://www.gesetze-im-internet.de/ao_1977/__146.html), [§ 147 AO](https://www.gesetze-im-internet.de/ao_1977/__147.html) und [BMF-Schreiben vom 14. Juli 2025](https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Weitere_Steuerthemen/Abgabenordnung/2025-07-14-GoBD-2-aenderung.pdf?__blob=publicationFile&v=4) – Aufzeichnung, Aufbewahrung und aktueller GoBD-Änderungsstand.
 
 ---
+
+<a id="schlussbemerkung"></a>
 
 ## Schlussbemerkung
 
